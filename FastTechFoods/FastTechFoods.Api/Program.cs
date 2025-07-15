@@ -27,6 +27,7 @@ using UseCase.PedidoUseCase.CancelarPedido;
 using UseCase.PedidoUseCase.CriarPedido;
 using UseCase.PedidoUseCase.EnviarPedido;
 using UseCase.PedidoUseCase.ListarPedidos;
+using UseCase.PedidoUseCase.PedidoConferido;
 using UseCase.PedidoUseCase.RejeitarPedido;
 using UseCase.PedidoUseCase.Shared;
 

@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Domain.Interfaces;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
-using System.Text.Json;
 using System.Text;
-using UseCase.Interfaces;
+using System.Text.Json;
 
 namespace Infrastructure.RabbitMq;
 

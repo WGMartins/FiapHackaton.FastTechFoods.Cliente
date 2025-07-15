@@ -1,4 +1,4 @@
-﻿namespace UseCase.Interfaces;
+﻿namespace Domain.Interfaces;
 
 public interface IMessagePublisher
 {
