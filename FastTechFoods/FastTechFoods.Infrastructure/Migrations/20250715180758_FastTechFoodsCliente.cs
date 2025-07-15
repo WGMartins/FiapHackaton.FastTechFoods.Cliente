@@ -6,25 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FastTechFoods : Migration
+    public partial class FastTechFoodsCliente : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Cardapio",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    RestauranteId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    AlteradoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cardapio", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Cliente",
                 columns: table => new
@@ -40,30 +26,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ItemDeCardapio",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CardapioId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Nome = table.Column<string>(type: "text", nullable: false),
-                    Valor = table.Column<decimal>(type: "numeric", nullable: false),
-                    Descricao = table.Column<string>(type: "text", nullable: false),
-                    Tipo = table.Column<int>(type: "integer", nullable: false),
-                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    AlteradoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemDeCardapio", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ItemDeCardapio_Cardapio_CardapioId",
-                        column: x => x.CardapioId,
-                        principalTable: "Cardapio",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Restaurante",
                 columns: table => new
                 {
@@ -76,10 +38,41 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Restaurante", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuario",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    Cpf = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: true),
+                    SenhaHash = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Role = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AlteradoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuario", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cardapio",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    RestauranteId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AlteradoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cardapio", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Restaurante_Cardapio_CardapioId",
-                        column: x => x.CardapioId,
-                        principalTable: "Cardapio",
+                        name: "FK_Cardapio_Restaurante_RestauranteId",
+                        column: x => x.RestauranteId,
+                        principalTable: "Restaurante",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -115,6 +108,30 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ItemDeCardapio",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CardapioId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Nome = table.Column<string>(type: "text", nullable: false),
+                    Valor = table.Column<decimal>(type: "numeric", nullable: false),
+                    Descricao = table.Column<string>(type: "text", nullable: false),
+                    Tipo = table.Column<int>(type: "integer", nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AlteradoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemDeCardapio", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemDeCardapio_Cardapio_CardapioId",
+                        column: x => x.CardapioId,
+                        principalTable: "Cardapio",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ItemDePedido",
                 columns: table => new
                 {
@@ -139,6 +156,12 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cardapio_RestauranteId",
+                table: "Cardapio",
+                column: "RestauranteId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ItemDeCardapio_CardapioId",
                 table: "ItemDeCardapio",
                 column: "CardapioId");
@@ -157,12 +180,6 @@ namespace Infrastructure.Migrations
                 name: "IX_Pedido_RestauranteId",
                 table: "Pedido",
                 column: "RestauranteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Restaurante_CardapioId",
-                table: "Restaurante",
-                column: "CardapioId",
-                unique: true);
         }
 
         /// <inheritdoc />
@@ -175,6 +192,12 @@ namespace Infrastructure.Migrations
                 name: "ItemDePedido");
 
             migrationBuilder.DropTable(
+                name: "Usuario");
+
+            migrationBuilder.DropTable(
+                name: "Cardapio");
+
+            migrationBuilder.DropTable(
                 name: "Pedido");
 
             migrationBuilder.DropTable(
@@ -182,9 +205,6 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Restaurante");
-
-            migrationBuilder.DropTable(
-                name: "Cardapio");
         }
     }
 }

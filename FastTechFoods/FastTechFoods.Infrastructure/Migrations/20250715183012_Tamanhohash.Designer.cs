@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250713200251_FastTechFoods")]
-    partial class FastTechFoods
+    [Migration("20250715183012_Tamanhohash")]
+    partial class Tamanhohash
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RestauranteId")
+                        .IsUnique();
 
                     b.ToTable("Cardapio");
                 });
@@ -82,7 +85,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.CardapioAggregate.Restaurante", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("AlteradoEm")
@@ -100,16 +102,12 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CardapioId")
-                        .IsUnique();
-
                     b.ToTable("Restaurante");
                 });
 
             modelBuilder.Entity("Domain.PedidoAggregate.Cliente", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("AlteradoEm")
@@ -130,7 +128,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.PedidoAggregate.ItemDePedido", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("AlteradoEm")
@@ -165,7 +162,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.PedidoAggregate.Pedido", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("AlteradoEm")
@@ -198,22 +194,56 @@ namespace Infrastructure.Migrations
                     b.ToTable("Pedido");
                 });
 
+            modelBuilder.Entity("Domain.UsuarioAggregate.Usuario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("AlteradoEm")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Cpf")
+                        .HasMaxLength(11)
+                        .HasColumnType("character varying(11)");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("SenhaHash")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuario");
+                });
+
+            modelBuilder.Entity("Domain.CardapioAggregate.Cardapio", b =>
+                {
+                    b.HasOne("Domain.CardapioAggregate.Restaurante", "Restaurante")
+                        .WithOne("Cardapio")
+                        .HasForeignKey("Domain.CardapioAggregate.Cardapio", "RestauranteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurante");
+                });
+
             modelBuilder.Entity("Domain.CardapioAggregate.ItemDeCardapio", b =>
                 {
                     b.HasOne("Domain.CardapioAggregate.Cardapio", "Cardapio")
                         .WithMany("ItensDeCardapio")
                         .HasForeignKey("CardapioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cardapio");
-                });
-
-            modelBuilder.Entity("Domain.CardapioAggregate.Restaurante", b =>
-                {
-                    b.HasOne("Domain.CardapioAggregate.Cardapio", "Cardapio")
-                        .WithOne("Restaurante")
-                        .HasForeignKey("Domain.CardapioAggregate.Restaurante", "CardapioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -253,13 +283,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.CardapioAggregate.Cardapio", b =>
                 {
                     b.Navigation("ItensDeCardapio");
-
-                    b.Navigation("Restaurante")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.CardapioAggregate.Restaurante", b =>
                 {
+                    b.Navigation("Cardapio")
+                        .IsRequired();
+
                     b.Navigation("Pedidos");
                 });
 

@@ -14,7 +14,7 @@ namespace Infrastructure.Configuration
             builder.Property(e => e.AlteradoEm).HasColumnType("timestamp without time zone");
             builder.Property(e => e.Email).HasMaxLength(200);
             builder.Property(e => e.Cpf).HasMaxLength(11);
-            builder.Property(e => e.SenhaHash).IsRequired().HasMaxLength(50);
+            builder.Property(e => e.SenhaHash).IsRequired().HasMaxLength(100);
             builder.Property(e => e.Role).IsRequired().HasMaxLength(50);            
         }
     }

@@ -217,8 +217,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("SenhaHash")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
