@@ -3,14 +3,14 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 COPY ./ ./
-WORKDIR /app/FiapHackaton.FastTechFoods.Cliente
+WORKDIR /app/FastTechFoods
 
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-COPY --from=build /app/FiapHackaton.FastTechFoods.Cliente/out .
+COPY --from=build /app/FastTechFoods/out .
 EXPOSE 8080
 
 
