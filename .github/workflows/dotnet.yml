@@ -34,7 +34,7 @@ jobs:
       run: dotnet restore ./FastTechFoods/FastTechFoods.Api/Api.csproj
       
     - name: Build
-      run: dotnet build --no-restore ./FastTechFoods/FastTechFoods/Api.csproj
+      run: dotnet build --no-restore ./FastTechFoods/FastTechFoods.Api/Api.csproj
 
     # Connect to Azure Container registry (ACR)
     - uses: azure/docker-login@v1
