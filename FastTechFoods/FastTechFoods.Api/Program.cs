@@ -16,19 +16,12 @@ using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json.Serialization;
 using UseCase.AuthUseCase.AutenticarUsuario;
-using UseCase.CardapioUseCase.AdicionarItemCardapio;
-using UseCase.CardapioUseCase.AtualizarItemCardapio;
 using UseCase.CardapioUseCase.ListarItensCardapio;
-using UseCase.CardapioUseCase.RemoverItemCardapio;
 using UseCase.Interfaces;
-using UseCase.PedidoUseCase.AceitarPedido;
 using UseCase.PedidoUseCase.AdicionarItemPedido;
 using UseCase.PedidoUseCase.CancelarPedido;
 using UseCase.PedidoUseCase.CriarPedido;
 using UseCase.PedidoUseCase.EnviarPedido;
-using UseCase.PedidoUseCase.ListarPedidos;
-using UseCase.PedidoUseCase.PedidoConferido;
-using UseCase.PedidoUseCase.RejeitarPedido;
 using UseCase.PedidoUseCase.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -77,14 +70,6 @@ builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 
 #region Cardapio
 
-builder.Services.AddScoped<IAdicionarItemCardapioUseCase, AdicionarItemCardapioUseCase>();
-builder.Services.AddScoped<IValidator<AdicionarItemCardapioDto>, AdicionarItemCardapioValidator>();
-
-builder.Services.AddScoped<IAtualizarItemCardapioUseCase, AtualizarItemCardapioUseCase>();
-builder.Services.AddScoped<IValidator<AtualizarItemCardapioDto>, AtualizarItemValidator>();
-
-builder.Services.AddScoped<IRemoverItemCardapioUseCase, RemoverItemCardapioUseCase>();
-
 builder.Services.AddScoped<IListarItensCardapioUseCase, ListarItensCardapioUseCase>();
 
 #endregion
@@ -97,15 +82,9 @@ builder.Services.AddScoped<IValidator<AdicionarPedidoDto>, CriarPedidoValidator>
 builder.Services.AddScoped<IAdicionarItemPedidoUseCase, AdicionarItemPedidoUseCase>();
 builder.Services.AddScoped<IValidator<AdicionarItemPedidoDto>, AdicionarItemPedidoValidator>();
 
-builder.Services.AddScoped<IAceitarPedidoUseCase, AceitarPedidoUseCase>();
-
 builder.Services.AddScoped<ICancelarPedidoUseCase, CancelarPedidoUseCase>();
 
 builder.Services.AddScoped<IEnviarPedidoUseCase, EnviarPedidoUseCase>();
-
-builder.Services.AddScoped<IRejeitarPedidoUseCase, RejeitarPedidoUseCase>();
-
-builder.Services.AddScoped<IListarPedidosUseCase, ListarPedidosUseCase>();
 
 #endregion
 
@@ -140,7 +119,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "FastTechFoods", Version = "v1" });
 
-    // Adiciona suporte ao JWT
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -196,7 +174,6 @@ builder.Services.AddSingleton<Func<string, IMessagePublisher>>(sp => producerNam
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

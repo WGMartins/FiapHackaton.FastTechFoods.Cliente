@@ -2,34 +2,33 @@
 using Domain.PedidoAggregate;
 using UseCase.Interfaces;
 
-namespace UseCase.PedidoUseCase.CancelarPedido
+namespace UseCase.PedidoUseCase.CancelarPedido;
+
+public class CancelarPedidoUseCase : ICancelarPedidoUseCase
 {
-    public class CancelarPedidoUseCase : ICancelarPedidoUseCase
+    private readonly IPedidoRepository _pedidoRepository;
+
+    public CancelarPedidoUseCase(IPedidoRepository pedidoRepository)
     {
-        private readonly IPedidoRepository _pedidoRepository;
+        _pedidoRepository = pedidoRepository;
+    }
 
-        public CancelarPedidoUseCase(IPedidoRepository pedidoRepository)
+    public void Cancelar(Guid idCliente, Guid id)
+    {
+        var pedido = _pedidoRepository.ObterPorId(id);
+
+        if (pedido is null || pedido.ClienteId != idCliente)
         {
-            _pedidoRepository = pedidoRepository;
+            throw new Exception("Pedido não encontrado");
         }
 
-        public void Cancelar(Guid idCliente, Guid id)
+        if (pedido.Status != Status.EmAndamento)
         {
-            var pedido = _pedidoRepository.ObterPorId(id);
-
-            if (pedido is null || pedido.ClienteId != idCliente)
-            {
-                throw new Exception("Pedido não encontrado");
-            }
-
-            if (pedido.Status != Status.EmAndamento)
-            {
-                throw new Exception("Pedido não permite cancelamento");
-            }
-
-            pedido.AlterarStatus(Status.Cancelado);
-
-            _pedidoRepository.Atualizar(pedido);
+            throw new Exception("Pedido não permite cancelamento");
         }
+
+        pedido.AlterarStatus(Status.Cancelado);
+
+        _pedidoRepository.Atualizar(pedido);
     }
 }

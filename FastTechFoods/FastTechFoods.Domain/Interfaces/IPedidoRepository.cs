@@ -7,6 +7,5 @@ namespace Domain.Interfaces
         void Adicionar(Pedido pedido);
         void Atualizar(Pedido pedido);
         Pedido ObterPorId(Guid id);
-        IList<Pedido> Listar(Guid restauranteid);
     }
 }

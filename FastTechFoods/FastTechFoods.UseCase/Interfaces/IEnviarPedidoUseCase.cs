@@ -1,7 +1,6 @@
-﻿namespace UseCase.Interfaces
+﻿namespace UseCase.Interfaces;
+
+public interface IEnviarPedidoUseCase
 {
-    public interface IEnviarPedidoUseCase
-    {
-        void Enviar (Guid idCliente, Guid id);
-    }
+    void Enviar (Guid idCliente, Guid id);
 }

@@ -3,33 +3,32 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UseCase.Interfaces;
 
-namespace Api.Controllers.Cliente
+namespace Api.Controllers.Cliente;
+
+[Tags("Cliente")]
+[Authorize(Roles = "Cliente")]
+[Route("cliente/{idCliente:Guid}/[controller]")]
+[ApiController]
+public class CardapioController : ControllerBase
 {
-    [Tags("Cliente")]
-    [Authorize(Roles = "Cliente")]
-    [Route("cliente/{idCliente:Guid}/[controller]")]
-    [ApiController]
-    public class CardapioController : ControllerBase
+    private readonly IListarItensCardapioUseCase _listarItensCardapioUseCase;
+
+    public CardapioController(IListarItensCardapioUseCase listarItensCardapioUseCase)
     {
-        private readonly IListarItensCardapioUseCase _listarItensCardapioUseCase;
+        _listarItensCardapioUseCase = listarItensCardapioUseCase;
+    }
 
-        public CardapioController(IListarItensCardapioUseCase listarItensCardapioUseCase)
+    [HttpGet]
+    [Route("{idCardapio:Guid}/Itens")]
+    public IActionResult ListarItens(Guid idCliente, Guid idCardapio, [FromQuery] string? nome, [FromQuery] TipoRefeicao? tipoRefeicao)
+    {
+        try
         {
-            _listarItensCardapioUseCase = listarItensCardapioUseCase;
+            return Ok(_listarItensCardapioUseCase.Listar(idCliente, idCardapio, nome, tipoRefeicao));
         }
-
-        [HttpGet]
-        [Route("{idCardapio:Guid}/Itens")]
-        public IActionResult ListarItens(Guid idCliente, Guid idCardapio, [FromQuery] string? nome, [FromQuery] TipoRefeicao? tipoRefeicao)
+        catch (Exception e)
         {
-            try
-            {
-                return Ok(_listarItensCardapioUseCase.Listar(idCliente, idCardapio, nome, tipoRefeicao));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            return BadRequest(e.Message);
         }
     }
 }

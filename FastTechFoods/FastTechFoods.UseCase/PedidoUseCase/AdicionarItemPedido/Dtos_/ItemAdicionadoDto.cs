@@ -1,7 +1,6 @@
-﻿namespace UseCase.PedidoUseCase.AdicionarItemPedido
+﻿namespace UseCase.PedidoUseCase.AdicionarItemPedido;
+
+public class ItemAdicionadoDto
 {
-    public class ItemAdicionadoDto
-    {
-        public Guid Id { get; set; }
-    }
+    public Guid Id { get; set; }
 }

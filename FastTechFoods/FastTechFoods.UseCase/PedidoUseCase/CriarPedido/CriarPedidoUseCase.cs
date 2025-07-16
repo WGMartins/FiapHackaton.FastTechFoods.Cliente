@@ -2,7 +2,6 @@
 using Domain.PedidoAggregate;
 using FluentValidation;
 using UseCase.Interfaces;
-using UseCase.PedidoUseCase.Shared;
 
 namespace UseCase.PedidoUseCase.CriarPedido;
 

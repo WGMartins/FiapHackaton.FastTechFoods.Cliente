@@ -1,9 +1,8 @@
 ﻿using UseCase.PedidoUseCase.PedidoConferido;
 
-namespace UseCase.Interfaces
+namespace UseCase.Interfaces;
+
+public interface IPedidoConferidoUseCase
 {
-    public interface IPedidoConferidoUseCase
-    {
-        void Atualizar (PedidoConferidoDto pedidoConferidoDto);
-    }
+    void Atualizar (PedidoConferidoDto pedidoConferidoDto);
 }

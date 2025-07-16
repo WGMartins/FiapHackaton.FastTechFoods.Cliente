@@ -1,10 +1,9 @@
 ﻿using UseCase.PedidoUseCase.AdicionarItemPedido;
 using UseCase.PedidoUseCase.Shared;
 
-namespace UseCase.Interfaces
+namespace UseCase.Interfaces;
+
+public interface IAdicionarItemPedidoUseCase
 {
-    public interface IAdicionarItemPedidoUseCase
-    {
-        ItemAdicionadoDto Adicionar (Guid idCliente, Guid id, AdicionarItemPedidoDto adicionarItemDto);
-    }
+    ItemAdicionadoDto Adicionar (Guid idCliente, Guid id, AdicionarItemPedidoDto adicionarItemDto);
 }

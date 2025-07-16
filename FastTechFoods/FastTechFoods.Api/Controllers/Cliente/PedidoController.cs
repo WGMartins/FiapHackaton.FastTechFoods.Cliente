@@ -4,84 +4,83 @@ using UseCase.Interfaces;
 using UseCase.PedidoUseCase.CriarPedido;
 using UseCase.PedidoUseCase.Shared;
 
-namespace Api.Controllers.Cliente
+namespace Api.Controllers.Cliente;
+
+[Tags("Cliente")]
+[Authorize(Roles = "Cliente")]
+[Route("cliente/{idCliente:Guid}/[controller]")]
+[ApiController]
+public class PedidoController : ControllerBase
 {
-    [Tags("Cliente")]
-    [Authorize(Roles = "Cliente")]
-    [Route("cliente/{idCliente:Guid}/[controller]")]
-    [ApiController]
-    public class PedidoController : ControllerBase
+    private readonly ICriarPedidoUseCase _criarPedidoUseCase;
+    private readonly IAdicionarItemPedidoUseCase _adicionarItemPedidoUseCase;
+    private readonly IEnviarPedidoUseCase _enviarPedidoUseCase;
+    private readonly ICancelarPedidoUseCase _cancelarPedidoUseCase;
+
+    public PedidoController(ICriarPedidoUseCase criarPedidoUseCase, IAdicionarItemPedidoUseCase adicionarItemPedidoUseCase
+        , IEnviarPedidoUseCase enviarPedidoUseCase, ICancelarPedidoUseCase cancelarPedidoUseCase)
     {
-        private readonly ICriarPedidoUseCase _criarPedidoUseCase;
-        private readonly IAdicionarItemPedidoUseCase _adicionarItemPedidoUseCase;
-        private readonly IEnviarPedidoUseCase _enviarPedidoUseCase;
-        private readonly ICancelarPedidoUseCase _cancelarPedidoUseCase;
+        _criarPedidoUseCase = criarPedidoUseCase;
+        _adicionarItemPedidoUseCase = adicionarItemPedidoUseCase;
+        _enviarPedidoUseCase = enviarPedidoUseCase;
+        _cancelarPedidoUseCase = cancelarPedidoUseCase;
+    }
 
-        public PedidoController(ICriarPedidoUseCase criarPedidoUseCase, IAdicionarItemPedidoUseCase adicionarItemPedidoUseCase
-            , IEnviarPedidoUseCase enviarPedidoUseCase, ICancelarPedidoUseCase cancelarPedidoUseCase)
+    [HttpPost]
+    [Route("")]
+    public IActionResult Criar(Guid idCliente, AdicionarPedidoDto adicionarPedidoDto)
+    {
+        try
         {
-            _criarPedidoUseCase = criarPedidoUseCase;
-            _adicionarItemPedidoUseCase = adicionarItemPedidoUseCase;
-            _enviarPedidoUseCase = enviarPedidoUseCase;
-            _cancelarPedidoUseCase = cancelarPedidoUseCase;
+            return Ok(_criarPedidoUseCase.Criar(idCliente, adicionarPedidoDto));
         }
-
-        [HttpPost]
-        [Route("")]
-        public IActionResult Criar(Guid idCliente, AdicionarPedidoDto adicionarPedidoDto)
+        catch (Exception e)
         {
-            try
-            {
-                return Ok(_criarPedidoUseCase.Criar(idCliente, adicionarPedidoDto));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            return BadRequest(e.Message);
         }
+    }
 
-        [HttpPut]
-        [Route("{id:Guid}/Item")]
-        public IActionResult AdicionarItem(Guid idCliente, Guid id, AdicionarItemPedidoDto adicionarItemDto)
+    [HttpPut]
+    [Route("{id:Guid}/Item")]
+    public IActionResult AdicionarItem(Guid idCliente, Guid id, AdicionarItemPedidoDto adicionarItemDto)
+    {
+        try
         {
-            try
-            {
-                return Ok(_adicionarItemPedidoUseCase.Adicionar(idCliente, id, adicionarItemDto));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            return Ok(_adicionarItemPedidoUseCase.Adicionar(idCliente, id, adicionarItemDto));
         }
-
-        [HttpPut]
-        [Route("{id:Guid}/enviar")]
-        public IActionResult Enviar(Guid idCliente, Guid id)
+        catch (Exception e)
         {
-            try
-            {
-                _enviarPedidoUseCase.Enviar(idCliente, id);
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            return BadRequest(e.Message);
         }
+    }
 
-        [HttpPut]
-        [Route("{id:Guid}/cancelar")]
-        public IActionResult Cancelar(Guid idCliente, Guid id)
+    [HttpPut]
+    [Route("{id:Guid}/enviar")]
+    public IActionResult Enviar(Guid idCliente, Guid id)
+    {
+        try
         {
-            try
-            {
-                _cancelarPedidoUseCase.Cancelar(idCliente, id);
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            _enviarPedidoUseCase.Enviar(idCliente, id);
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPut]
+    [Route("{id:Guid}/cancelar")]
+    public IActionResult Cancelar(Guid idCliente, Guid id)
+    {
+        try
+        {
+            _cancelarPedidoUseCase.Cancelar(idCliente, id);
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
         }
     }
 }

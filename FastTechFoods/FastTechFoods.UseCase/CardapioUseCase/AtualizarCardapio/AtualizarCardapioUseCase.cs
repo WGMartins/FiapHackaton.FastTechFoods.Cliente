@@ -1,48 +1,47 @@
 ﻿using Domain.Interfaces;
 using UseCase.Interfaces;
 
-namespace UseCase.CardapioUseCase.AtualizarCardapio
+namespace UseCase.CardapioUseCase.AtualizarCardapio;
+
+public class AtualizarCardapioUseCase : IAtualizarCardapioUseCase
 {
-    public class AtualizarCardapioUseCase : IAtualizarCardapioUseCase
+    private readonly ICardapioRepository _cardapioRepository;
+
+    public AtualizarCardapioUseCase(ICardapioRepository cardapioRepository)
     {
-        private readonly ICardapioRepository _cardapioRepository;
+        _cardapioRepository = cardapioRepository;
+    }
 
-        public AtualizarCardapioUseCase(ICardapioRepository cardapioRepository)
+    public void Atualizar(CardapioAtualizadoDto cardapioAtualizadoDto)
+    {
+        var cardapio = _cardapioRepository.ObterPorId(cardapioAtualizadoDto.Id);
+
+        if (cardapio is null || cardapio.RestauranteId != cardapioAtualizadoDto.RestauranteId)
         {
-            _cardapioRepository = cardapioRepository;
+            throw new Exception("Cardapio não encontrado");
         }
 
-        public void Atualizar(CardapioAtualizadoDto cardapioAtualizadoDto)
+        foreach (var item in cardapioAtualizadoDto.ItensDeCardapio)
         {
-            var cardapio = _cardapioRepository.ObterPorId(cardapioAtualizadoDto.Id);
+            var itemDeCardapio = cardapio.ItensDeCardapio.Where(x => x.Id == item.Id).FirstOrDefault();
 
-            if (cardapio is null || cardapio.RestauranteId != cardapioAtualizadoDto.RestauranteId)
+            if (itemDeCardapio is null)
             {
-                throw new Exception("Cardapio não encontrado");
+                cardapio.AdicionarItem(item.Id, cardapio.Id, item.Nome, item.Valor, item.Descricao, item.Tipo);
             }
-
-            foreach (var item in cardapioAtualizadoDto.ItensDeCardapio)
+            else
             {
-                var itemDeCardapio = cardapio.ItensDeCardapio.Where(x => x.Id == item.Id).FirstOrDefault();
-
-                if (itemDeCardapio is null)
-                {
-                    cardapio.AdicionarItem(item.Id, cardapio.Id, item.Nome, item.Valor, item.Descricao, item.Tipo);
-                }
-                else
-                {
-                    cardapio.AtualizarItem(item.Id, item.Nome, item.Valor, item.Descricao, item.Tipo);
-                }
+                cardapio.AtualizarItem(item.Id, item.Nome, item.Valor, item.Descricao, item.Tipo);
             }
-
-            var itensDeCardapioExcluidos = cardapio.ItensDeCardapio.ExceptBy(cardapioAtualizadoDto.ItensDeCardapio.Select(a => a.Id), i => i.Id).ToList();
-
-            foreach (var item in itensDeCardapioExcluidos)
-            {
-                cardapio.RemoverItem(item);
-            }
-
-            _cardapioRepository.Atualizar(cardapio);
         }
+
+        var itensDeCardapioExcluidos = cardapio.ItensDeCardapio.ExceptBy(cardapioAtualizadoDto.ItensDeCardapio.Select(a => a.Id), i => i.Id).ToList();
+
+        foreach (var item in itensDeCardapioExcluidos)
+        {
+            cardapio.RemoverItem(item);
+        }
+
+        _cardapioRepository.Atualizar(cardapio);
     }
 }

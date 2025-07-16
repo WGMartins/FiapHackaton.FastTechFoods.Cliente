@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Domain.Interfaces;
+using Infrastructure.RabbitMq;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
-using Domain.Interfaces;
-using Infrastructure.RabbitMq;
-using Domain.PedidoAggregate;
 
 namespace Infrastructure.RabbitMQ;
 

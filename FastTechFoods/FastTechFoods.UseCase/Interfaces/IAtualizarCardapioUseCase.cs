@@ -1,9 +1,8 @@
 ﻿using UseCase.CardapioUseCase.AtualizarCardapio;
 
-namespace UseCase.Interfaces
+namespace UseCase.Interfaces;
+
+public interface IAtualizarCardapioUseCase
 {
-    public interface IAtualizarCardapioUseCase
-    {
-        void Atualizar (CardapioAtualizadoDto pedidoConferidoDto);
-    }
+    void Atualizar (CardapioAtualizadoDto pedidoConferidoDto);
 }
