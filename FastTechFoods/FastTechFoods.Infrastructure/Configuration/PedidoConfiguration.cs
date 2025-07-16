@@ -16,7 +16,7 @@ namespace Infrastructure.Configuration
             builder.Property(e => e.ClienteId).IsRequired();
             builder.Property(e => e.Status).IsRequired();
             builder.Property(e => e.FormaDeEntrega).IsRequired();
-            builder.Property(e => e.ValorTotal).IsRequired();
+            builder.Property(e => e.ValorTotal).HasPrecision(18, 2).IsRequired();
 
             builder.HasOne(p => p.Restaurante)
                    .WithMany(r => r.Pedidos)

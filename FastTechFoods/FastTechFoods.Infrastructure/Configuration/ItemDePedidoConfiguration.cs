@@ -14,9 +14,9 @@ namespace Infrastructure.Configuration
             builder.Property(e => e.AlteradoEm).HasColumnType("timestamp without time zone");
             builder.Property(e => e.PedidoId).IsRequired();
             builder.Property(e => e.Nome).IsRequired();
-            builder.Property(e => e.ValorUnitario).IsRequired();
+            builder.Property(e => e.ValorUnitario).HasPrecision(18, 2).IsRequired();
             builder.Property(e => e.Quantidade).IsRequired();
-            builder.Property(e => e.ValorTotal).IsRequired();
+            builder.Property(e => e.ValorTotal).HasPrecision(18, 2).IsRequired();
 
             builder.HasOne(i => i.Pedido)
                    .WithMany(c => c.ItensDePedido)

@@ -14,7 +14,7 @@ namespace Infrastructure.Configuration
             builder.Property(e => e.AlteradoEm).HasColumnType("timestamp without time zone");
             builder.Property(e => e.CardapioId).IsRequired();
             builder.Property(e => e.Nome).IsRequired();
-            builder.Property(e => e.Valor).IsRequired();
+            builder.Property(e => e.Valor).HasPrecision(18, 2).IsRequired();
             builder.Property(e => e.Descricao).IsRequired();
             builder.Property(e => e.Tipo).IsRequired();
 

@@ -22,7 +22,7 @@ namespace UseCase.PedidoUseCase.CancelarPedido
                 throw new Exception("Pedido não encontrado");
             }
 
-            if (pedido.Status != Status.EmAndamento && pedido.Status != Status.Enviado)
+            if (pedido.Status != Status.EmAndamento)
             {
                 throw new Exception("Pedido não permite cancelamento");
             }

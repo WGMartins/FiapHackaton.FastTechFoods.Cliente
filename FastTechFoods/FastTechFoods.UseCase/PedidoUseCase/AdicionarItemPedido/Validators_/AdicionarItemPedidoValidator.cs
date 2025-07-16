@@ -7,7 +7,14 @@ namespace UseCase.PedidoUseCase.AdicionarItemPedido
     {
         public AdicionarItemPedidoValidator()
         {
-            
+            RuleFor(x => x.ItemDoCardapioId)
+                .NotEmpty()
+                .WithMessage("Item de Cardapio é obrigatório");
+
+            RuleFor(x => x.Quantidade)
+                .GreaterThan(0)
+                .WithMessage("Quantidade deve ser maior que zero");
+
         }
     }
 }

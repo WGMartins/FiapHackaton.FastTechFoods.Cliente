@@ -47,7 +47,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     Cpf = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: true),
-                    SenhaHash = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    SenhaHash = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Role = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     AlteradoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
@@ -86,7 +86,7 @@ namespace Infrastructure.Migrations
                     ClienteId = table.Column<Guid>(type: "uuid", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     FormaDeEntrega = table.Column<int>(type: "integer", nullable: false),
-                    ValorTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    ValorTotal = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     AlteradoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -114,7 +114,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CardapioId = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
-                    Valor = table.Column<decimal>(type: "numeric", nullable: false),
+                    Valor = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
                     Descricao = table.Column<string>(type: "text", nullable: false),
                     Tipo = table.Column<int>(type: "integer", nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -138,9 +138,9 @@ namespace Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PedidoId = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
-                    ValorUnitario = table.Column<decimal>(type: "numeric", nullable: false),
+                    ValorUnitario = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
                     Quantidade = table.Column<int>(type: "integer", nullable: false),
-                    ValorTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    ValorTotal = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     AlteradoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -180,6 +180,12 @@ namespace Infrastructure.Migrations
                 name: "IX_Pedido_RestauranteId",
                 table: "Pedido",
                 column: "RestauranteId");
+
+            migrationBuilder.Sql("INSERT INTO \"Restaurante\"(\"Id\", \"Nome\", \"CardapioId\", \"CriadoEm\", \"AlteradoEm\") VALUES('fa00c0cb-9c6d-4410-877b-5dc403a2aee9', 'RESTAURANTE CENTRO', 'd5dad53a-56c8-4f65-abd1-27209d99bdc5', LOCALTIMESTAMP, null)");
+            migrationBuilder.Sql("INSERT INTO \"Usuario\"(\"Id\", \"Email\", \"Cpf\", \"SenhaHash\", \"Role\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'emailteste@teste.com', '02051673063', '$2a$11$s7x5kOb0gUsP6v8cptIaF..RW84lfsKxBQ7nHJNhTMI/EpqtEjYu.', 'Cliente', LOCALTIMESTAMP, null)");
+            migrationBuilder.Sql("INSERT INTO \"Cliente\"(\"Id\", \"Nome\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'FULANO DA SILVA', LOCALTIMESTAMP, null)");
+            migrationBuilder.Sql("INSERT INTO \"Cardapio\"(\"Id\", \"RestauranteId\", \"CriadoEm\", \"AlteradoEm\") VALUES('d5dad53a-56c8-4f65-abd1-27209d99bdc5', 'fa00c0cb-9c6d-4410-877b-5dc403a2aee9', LOCALTIMESTAMP, null)");
+            migrationBuilder.Sql("INSERT INTO \"ItemDeCardapio\"(\"Id\", \"CardapioId\", \"Nome\", \"Valor\", \"Descricao\", \"Tipo\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'd5dad53a-56c8-4f65-abd1-27209d99bdc5', 'X-BURGER', '29.90', 'HAMBURGUER DE CARNE BOVINA', 1, LOCALTIMESTAMP, null)");
         }
 
         /// <inheritdoc />
