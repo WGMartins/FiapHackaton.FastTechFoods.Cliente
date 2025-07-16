@@ -23,8 +23,8 @@ public class UsuarioRepository : IUsuarioRepository
         ));
     }
 
-    public async Task<Usuario?> BuscarPorEmailAsync(string email, string role)
+    public async Task<Usuario?> BuscarPorEmailAsync(string email)
     {
-        return await _context.Usuario.FirstOrDefaultAsync(u => u.Role == role && u.Email == email);            
+        return await _context.Usuario.FirstOrDefaultAsync(u => u.Role == "Cliente" && u.Email == email);
     }
 }

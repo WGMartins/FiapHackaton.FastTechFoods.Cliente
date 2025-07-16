@@ -34,7 +34,7 @@ public class AutenticarUsuarioUseCase : IAutenticarUsuarioUseCase
 
         if (!string.IsNullOrEmpty(autenticarUsuarioDto.Email))
         {
-            usuario = await _usuarioRepository.BuscarPorEmailAsync(autenticarUsuarioDto.Email, "Gerente");
+            usuario = await _usuarioRepository.BuscarPorEmailAsync(autenticarUsuarioDto.Email);
             if (usuario != null && VerificarSenha(autenticarUsuarioDto.Senha, usuario.SenhaHash))
                 return usuario;
         }
