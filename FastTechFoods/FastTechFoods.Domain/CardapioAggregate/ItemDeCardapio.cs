@@ -20,13 +20,29 @@ namespace Domain.CardapioAggregate
             Tipo = tipo;
         }
 
+        protected ItemDeCardapio(Guid id, Guid cardapioId, string nome, decimal valor, string descricao, TipoRefeicao tipo)
+        {
+            Id = id;
+            CardapioId = cardapioId;
+            Nome = nome;
+            Valor = valor;
+            Descricao = descricao;
+            Tipo = tipo;
+        }
+
         public static ItemDeCardapio Criar(Guid cardapioId, string nome, decimal valor, string descricao, TipoRefeicao tipo)
         {
             return new ItemDeCardapio(cardapioId, nome, valor, descricao, tipo);
         }
 
+        public static ItemDeCardapio Criar(Guid id, Guid cardapioId, string nome, decimal valor, string descricao, TipoRefeicao tipo)
+        {
+            return new ItemDeCardapio(id, cardapioId, nome, valor, descricao, tipo);
+        }
+
         public ItemDeCardapio Atualizar(string nome, decimal valor, string descricao, TipoRefeicao tipo)
         {
+            AlteradoEm = DateTime.Now;
             Nome = nome;
             Valor = valor;
             Descricao = descricao;

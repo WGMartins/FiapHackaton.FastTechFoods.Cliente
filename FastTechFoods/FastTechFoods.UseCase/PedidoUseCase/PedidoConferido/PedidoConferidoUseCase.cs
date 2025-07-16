@@ -21,7 +21,7 @@ namespace UseCase.PedidoUseCase.PedidoConferido
                 throw new Exception("Pedido não encontrado");
             }
 
-            pedido.AlterarStatus(pedido.Status);
+            pedido.AlterarStatus(pedidoConferidoDto.Status);
 
             _pedidoRepository.Atualizar(pedido);
         }

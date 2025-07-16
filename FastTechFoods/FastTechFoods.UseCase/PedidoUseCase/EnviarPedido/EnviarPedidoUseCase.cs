@@ -1,7 +1,6 @@
 ﻿using Domain.Interfaces;
 using Domain.PedidoAggregate;
 using UseCase.Interfaces;
-using UseCase.PedidoUseCase.ListarPedidos;
 
 namespace UseCase.PedidoUseCase.EnviarPedido
 {

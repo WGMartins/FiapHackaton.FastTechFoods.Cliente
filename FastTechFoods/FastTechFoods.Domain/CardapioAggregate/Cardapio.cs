@@ -6,6 +6,14 @@
         public required Restaurante Restaurante { get; set; }
         public required IList<ItemDeCardapio> ItensDeCardapio { get; set; } = [];
 
+        public ItemDeCardapio AdicionarItem(Guid id, Guid cardapioId, string nome, decimal valor, string descricao, TipoRefeicao tipo)
+        {
+            var itemDeCardapio = ItemDeCardapio.Criar(id, cardapioId, nome, valor, descricao, tipo);
+
+            ItensDeCardapio.Add(itemDeCardapio);
+
+            return itemDeCardapio;
+        }
         public ItemDeCardapio AdicionarItem(Guid cardapioId, string nome, decimal valor, string descricao, TipoRefeicao tipo)
         {
             var itemDeCardapio = ItemDeCardapio.Criar(cardapioId, nome, valor, descricao, tipo);
