@@ -11,7 +11,7 @@ on:
     branches: [ "main" ]
 
 env:
-  REGISTRY_NAME: fasttechfoods
+  REGISTRY_NAME: fiaphackaton
   CLUSTER_NAME: FastTechFoodsKS
   CLUSTER_RESOURCE_GROUP: FastTechFoods
   NAMESPACE: default
