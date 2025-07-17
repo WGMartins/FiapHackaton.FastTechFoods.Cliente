@@ -45,7 +45,7 @@ jobs:
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
-        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.worker:latest -f ./FastTechFoods/Dockerfile 
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.worker:latest -f ./FastTechFoods/DockerfileWorker 
         docker push ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.worker:latest
     
     # Set the target Azure Kubernetes Service (AKS) cluster. 
