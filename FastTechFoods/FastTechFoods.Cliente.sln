@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{42C0E74A-D8B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{52821DAF-35AE-4465-B6FD-433A656B4369}"
 	ProjectSection(SolutionItems) = preProject
-		api-deployment.yml = api-deployment.yml
 		Dockerfile = Dockerfile
+		deployment-worker.yml = deployment-worker.yml
+		deployment-api.yml = deployment-api.yml
 		DockerfileWorker = DockerfileWorker
 		..\.github\workflows\pipeline-worker.yml = ..\.github\workflows\pipeline-worker.yml
-		worker-deployment.yml = worker-deployment.yml
 		..\.github\workflows\pipeline-api.yml = ..\.github\workflows\pipeline-api.yml
 	EndProjectSection
 EndProject

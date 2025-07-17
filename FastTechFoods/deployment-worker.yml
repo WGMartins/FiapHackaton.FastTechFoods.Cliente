@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: fasttechfoods-cliente-worker
-        image: fiaptechchallenge.azurecr.io/fasttechfoods.cliente.worker
+        image: fiaphackaton.azurecr.io/fasttechfoods.cliente.worker
         envFrom:
           - configMapRef:
              name: configmap-worker
