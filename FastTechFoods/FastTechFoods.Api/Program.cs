@@ -38,23 +38,23 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Logging.AddOpenTelemetry(options =>
-//{
-//    options
-//        .SetResourceBuilder(
-//            ResourceBuilder.CreateDefault()
-//                .AddService(serviceName))
-//        .AddConsoleExporter();
-//});
+builder.Logging.AddOpenTelemetry(options =>
+{
+    options
+        .SetResourceBuilder(
+            ResourceBuilder.CreateDefault()
+                .AddService(serviceName))
+        .AddConsoleExporter();
+});
 
-//builder.Services.AddOpenTelemetry()
-//      .ConfigureResource(resource => resource.AddService(serviceName))
-//      .WithTracing(tracing => tracing
-//          .AddAspNetCoreInstrumentation()
-//          .AddConsoleExporter())
-//      .WithMetrics(metrics => metrics
-//          .AddAspNetCoreInstrumentation()
-//          .AddConsoleExporter());
+builder.Services.AddOpenTelemetry()
+      .ConfigureResource(resource => resource.AddService(serviceName))
+      .WithTracing(tracing => tracing
+          .AddAspNetCoreInstrumentation()
+          .AddConsoleExporter())
+      .WithMetrics(metrics => metrics
+          .AddAspNetCoreInstrumentation()
+          .AddConsoleExporter());
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -177,9 +177,9 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-//builder.Services.AddAuthorization();
-//app.UseAuthentication();
-//app.UseAuthorization();
+builder.Services.AddAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
