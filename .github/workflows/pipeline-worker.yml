@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: Pipeline Worker
 
 on:
   workflow_dispatch:
@@ -31,10 +31,10 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Restore dependencies
-      run: dotnet restore ./FastTechFoods/FastTechFoods.Api/Api.csproj
+      run: dotnet restore ./FastTechFoods/FastTechFoods.Worker/Worker.csproj
       
     - name: Build
-      run: dotnet build --no-restore ./FastTechFoods/FastTechFoods.Api/Api.csproj
+      run: dotnet build --no-restore ./FastTechFoods/FastTechFoods.Worker/Worker.csproj
 
     # Connect to Azure Container registry (ACR)
     - uses: azure/docker-login@v1
@@ -45,8 +45,8 @@ jobs:
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
-        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.api:latest -f ./FastTechFoods/Dockerfile 
-        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.api:latest
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.worker:latest -f ./FastTechFoods/Dockerfile 
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.worker:latest
     
     # Set the target Azure Kubernetes Service (AKS) cluster. 
     - uses: azure/aks-set-context@v1
@@ -63,7 +63,7 @@ jobs:
     # Create ConfigMap
     - name: Criar ou atualizar ConfigMap
       run: |
-          kubectl create configmap configmap-api \
+          kubectl create configmap configmap-worker \
             --from-literal=RabbitMQ__HostName=${{ secrets.RABBITMQ__HOSTNAME }} \
             --from-literal=ConnectionStrings__ConnectionString=${{ secrets.CONNECTIONSTRINGS__CONNECTIONSTRING }} \
             --dry-run=client -o yaml | kubectl apply -f -
@@ -81,33 +81,9 @@ jobs:
     - uses: azure/k8s-deploy@v1
       with:
         manifests: |
-          FastTechFoods/api-deployment.yml
-        images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.api:latest
-        imagepullsecrets: |
-          ${{ env.REGISTRY_NAME }}-registry-connection
-        namespace: ${{ env.NAMESPACE }}
-
-    # Container build and push to a Azure Container registry (ACR)
-    - run: |
-        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.worker:latest -f ./FastTechFoods/DockerfileWorker
-        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.worker:latest
-
-    # Create ConfigMap
-    - name: Criar ou atualizar ConfigMap
-      run: |
-          kubectl create configmap configmap-worker \
-            --from-literal=RabbitMQ__HostName=${{ secrets.RABBITMQ__HOSTNAME }} \
-            --from-literal=ConnectionStrings__ConnectionString=${{ secrets.CONNECTIONSTRINGS__CONNECTIONSTRING }} \
-            --dry-run=client -o yaml | kubectl apply -f -
-
-    # Deploy app to AKS
-    - uses: azure/k8s-deploy@v1
-      with:
-        manifests: |
           FastTechFoods/worker-deployment.yml
         images: |
           ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.worker:latest
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
-        namespace: ${{ env.NAMESPACE }}
+        namespace: ${{ env.NAMESPACE 
