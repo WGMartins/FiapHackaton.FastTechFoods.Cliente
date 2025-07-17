@@ -32,7 +32,6 @@ public class PedidoConferidoWorkerService : BackgroundService
             pedidoConferidoUseCase.Atualizar(new PedidoConferidoDto
             {
                 Id = pedidoConferidoDto.Id,
-                ClienteId = pedidoConferidoDto.ClienteId,
                 RestauranteId = pedidoConferidoDto.RestauranteId,
                 Status = pedidoConferidoDto.Status,
             });
