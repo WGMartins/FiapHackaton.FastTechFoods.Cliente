@@ -38,23 +38,23 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Logging.AddOpenTelemetry(options =>
-{
-    options
-        .SetResourceBuilder(
-            ResourceBuilder.CreateDefault()
-                .AddService(serviceName))
-        .AddConsoleExporter();
-});
+//builder.Logging.AddOpenTelemetry(options =>
+//{
+//    options
+//        .SetResourceBuilder(
+//            ResourceBuilder.CreateDefault()
+//                .AddService(serviceName))
+//        .AddConsoleExporter();
+//});
 
-builder.Services.AddOpenTelemetry()
-      .ConfigureResource(resource => resource.AddService(serviceName))
-      .WithTracing(tracing => tracing
-          .AddAspNetCoreInstrumentation()
-          .AddConsoleExporter())
-      .WithMetrics(metrics => metrics
-          .AddAspNetCoreInstrumentation()
-          .AddConsoleExporter());
+//builder.Services.AddOpenTelemetry()
+//      .ConfigureResource(resource => resource.AddService(serviceName))
+//      .WithTracing(tracing => tracing
+//          .AddAspNetCoreInstrumentation()
+//          .AddConsoleExporter())
+//      .WithMetrics(metrics => metrics
+//          .AddAspNetCoreInstrumentation()
+//          .AddConsoleExporter());
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -92,23 +92,23 @@ builder.Services.AddScoped<IEnviarPedidoUseCase, EnviarPedidoUseCase>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IAutenticarUsuarioUseCase, AutenticarUsuarioUseCase>();
 builder.Services.AddScoped<IValidator<AutenticarUsuarioDto>, AutenticarUsuarioValidator>();
-builder.Services.AddScoped<JwtToken>();
+//builder.Services.AddScoped<JwtToken>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        var jwt = builder.Configuration.GetSection("JwtSettings");
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwt["Issuer"],
-            ValidAudience = jwt["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["SecretKey"]))
-        };
-    });
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        var jwt = builder.Configuration.GetSection("JwtSettings");
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidateAudience = true,
+//            ValidateLifetime = true,
+//            ValidateIssuerSigningKey = true,
+//            ValidIssuer = jwt["Issuer"],
+//            ValidAudience = jwt["Audience"],
+//            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["SecretKey"]))
+//        };
+//    });
 
 
 #endregion
