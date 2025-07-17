@@ -28,14 +28,14 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
-        {
+        //if (!optionsBuilder.IsConfigured)
+        //{
 
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .AddJsonFile(Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../FastTechFoods.Api/appsettings.json"))).Build();
+        //    IConfigurationRoot configuration = new ConfigurationBuilder()
+        //        .AddJsonFile(Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../FastTechFoods.Api/appsettings.json"))).Build();
 
-            optionsBuilder.UseNpgsql(configuration.GetConnectionString("ConnectionString"));
-        }
+        //    optionsBuilder.UseNpgsql(configuration.GetConnectionString("ConnectionString"));
+        //}
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
