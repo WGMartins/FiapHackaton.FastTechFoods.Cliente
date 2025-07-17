@@ -177,8 +177,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
-
 builder.Services.AddAuthorization();
 app.UseAuthentication();
 app.UseAuthorization();
