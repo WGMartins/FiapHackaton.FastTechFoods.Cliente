@@ -68,6 +68,9 @@ jobs:
             --from-literal=RabbitMQ__Cardapio__HostName=${{ secrets.RABBITMQ__CARDAPIO__HOSTNAME }} \
             --from-literal=ConnectionStrings__ConnectionString=${{ secrets.CONNECTIONSTRINGS__CONNECTIONSTRING }} \
             --from-literal=JwtSettings__SecretKey=${{ secrets.JWTSETTINGS__SECRETKEY }} \
+            --from-literal=JwtSettings__Issuer=${{ secrets.JWTSETTINGS__ISSUER }} \
+            --from-literal=JwtSettings__Audience=${{ secrets.JWTSETTINGS__AUDIENCE }} \
+            --from-literal=JwtSettings__ExpirationHours=${{ secrets.JWTSETTINGS__EXPIRATIONHOURS }} \
             --dry-run=client -o yaml | kubectl apply -f -
     
     # Create imagepullsecret for Azure Container registry (ACR)
