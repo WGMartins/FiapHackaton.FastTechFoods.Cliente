@@ -177,9 +177,9 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-builder.Services.AddAuthorization();
-app.UseAuthentication();
-app.UseAuthorization();
+//builder.Services.AddAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapControllers();
 
