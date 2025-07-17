@@ -12,7 +12,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 COPY --from=build /app/FastTechFoods/out .
 
-ENV ASPNETCORE_URLS=http://0.0.0.0:8080
+ENV ASPNETCORE_URLS=https://0.0.0.0:443;http://0.0.0.0:8080
+
 EXPOSE 8080
 
 
