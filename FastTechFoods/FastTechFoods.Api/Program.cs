@@ -26,7 +26,7 @@ using UseCase.PedidoUseCase.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+builder.Configuration.AddEnvironmentVariables();
 
 const string serviceName = "FastTechFoods";
 
@@ -58,7 +58,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseNpgsql(configuration.GetConnectionString("ConnectionString"));
+    options.UseNpgsql(builder.Configuration.GetSection("ConnectionStrings")["ConnectionString"]);
 }, ServiceLifetime.Scoped);
 
 #region Banco de Dados
