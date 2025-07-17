@@ -6,7 +6,7 @@ using UseCase.Interfaces;
 namespace Api.Controllers.Cliente;
 
 [Tags("Cliente")]
-//[Authorize(Roles = "Cliente")]
+[Authorize(Roles = "Cliente")]
 [Route("cliente/{idCliente:Guid}/[controller]")]
 [ApiController]
 public class CardapioController : ControllerBase
