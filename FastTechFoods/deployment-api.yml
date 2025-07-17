@@ -22,7 +22,6 @@ spec:
              name: configmap-api
         ports:
             - containerPort: 8080    # HTTP
-            - containerPort: 443     # HTTPS
 ---
 apiVersion: v1
 kind: Service
@@ -36,8 +35,5 @@ spec:
   - name: http
     port: 80
     targetPort: 8080
-  - name: https
-    port: 443
-    targetPort: 443
   selector:
     app: fasttechfoods-cliente-api
