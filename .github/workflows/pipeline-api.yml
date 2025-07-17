@@ -86,4 +86,4 @@ jobs:
           ${{ env.REGISTRY_NAME }}.azurecr.io/fasttechfoods.cliente.api:latest
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
-        namespace: ${{ env.NAMESPACE 
+        namespace: ${{ env.NAMESPACE  }}
