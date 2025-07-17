@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: fasttechfoods-cliente-api
-        image: fasttechfoods.azurecr.io/fasttechfoods.cliente.api
+        image: fiaphackaton.azurecr.io/fasttechfoods.cliente.api
         envFrom:
           - configMapRef:
              name: configmap-api

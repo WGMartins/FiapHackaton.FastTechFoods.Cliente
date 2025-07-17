@@ -9,8 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{42C0E74A-D8B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{52821DAF-35AE-4465-B6FD-433A656B4369}"
 	ProjectSection(SolutionItems) = preProject
+		api-deployment.yml = api-deployment.yml
 		Dockerfile = Dockerfile
 		DockerfileWorker = DockerfileWorker
+		worker-deployment.yml = worker-deployment.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "FastTechFoods.Domain\Domain.csproj", "{3D665F00-1DFF-453B-820C-6EA162865FB7}"
