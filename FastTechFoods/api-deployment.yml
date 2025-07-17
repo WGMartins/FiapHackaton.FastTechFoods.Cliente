@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: fasttechfoods-clienteapi
+        app: fasttechfoods-cliente-api
     spec:
       containers:
       - name: fasttechfoods-cliente-api
