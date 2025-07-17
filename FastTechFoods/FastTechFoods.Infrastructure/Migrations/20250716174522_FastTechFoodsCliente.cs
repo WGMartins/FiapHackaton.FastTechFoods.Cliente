@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -42,6 +43,7 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Usuario",
+
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -182,8 +184,10 @@ namespace Infrastructure.Migrations
                 column: "RestauranteId");
 
             migrationBuilder.Sql("INSERT INTO \"Restaurante\"(\"Id\", \"Nome\", \"CardapioId\", \"CriadoEm\", \"AlteradoEm\") VALUES('fa00c0cb-9c6d-4410-877b-5dc403a2aee9', 'RESTAURANTE CENTRO', 'd5dad53a-56c8-4f65-abd1-27209d99bdc5', LOCALTIMESTAMP, null)");
-            migrationBuilder.Sql("INSERT INTO \"Usuario\"(\"Id\", \"Email\", \"Cpf\", \"SenhaHash\", \"Role\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'emailteste@teste.com', '02051673063', '$2a$11$s7x5kOb0gUsP6v8cptIaF..RW84lfsKxBQ7nHJNhTMI/EpqtEjYu.', 'Cliente', LOCALTIMESTAMP, null)");
-            migrationBuilder.Sql("INSERT INTO \"Cliente\"(\"Id\", \"Nome\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'FULANO DA SILVA', LOCALTIMESTAMP, null)");
+            migrationBuilder.Sql("INSERT INTO \"Usuario\"(\"Id\", \"Email\", \"Cpf\", \"SenhaHash\", \"Role\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'cliente@teste.com', '02051673063', '$2a$11$s7x5kOb0gUsP6v8cptIaF..RW84lfsKxBQ7nHJNhTMI/EpqtEjYu.', 'Cliente', LOCALTIMESTAMP, null)");
+            migrationBuilder.Sql("INSERT INTO \"Usuario\"(\"Id\", \"Email\", \"Cpf\", \"SenhaHash\", \"Role\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'gerente@teste.com', null, '$2a$11$s7x5kOb0gUsP6v8cptIaF..RW84lfsKxBQ7nHJNhTMI/EpqtEjYu.', 'Gerente', '20250716', null )");
+            migrationBuilder.Sql("INSERT INTO \"Usuario\"(\"Id\", \"Email\", \"Cpf\", \"SenhaHash\", \"Role\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'atendente@teste.com', null, '$2a$11$s7x5kOb0gUsP6v8cptIaF..RW84lfsKxBQ7nHJNhTMI/EpqtEjYu.', 'Atencente', '20250716', null )");
+            migrationBuilder.Sql("INSERT INTO \"Cliente\"(\"Id\", \"Nome\", \"CriadoEm\", \"AlteradoEm\") VALUES('638acaf4-7d8e-4302-9f27-996fcea9c9f6', 'FULANO DA SILVA', LOCALTIMESTAMP, null)");
             migrationBuilder.Sql("INSERT INTO \"Cardapio\"(\"Id\", \"RestauranteId\", \"CriadoEm\", \"AlteradoEm\") VALUES('d5dad53a-56c8-4f65-abd1-27209d99bdc5', 'fa00c0cb-9c6d-4410-877b-5dc403a2aee9', LOCALTIMESTAMP, null)");
             migrationBuilder.Sql("INSERT INTO \"ItemDeCardapio\"(\"Id\", \"CardapioId\", \"Nome\", \"Valor\", \"Descricao\", \"Tipo\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'd5dad53a-56c8-4f65-abd1-27209d99bdc5', 'X-BURGER', '29.90', 'HAMBURGUER DE CARNE BOVINA', 1, LOCALTIMESTAMP, null)");
         }
