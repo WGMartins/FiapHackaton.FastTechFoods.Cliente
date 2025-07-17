@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fasttechfoods-cliente-worker
+  labels:
+    app: fasttechfoods-cliente-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fasttechfoods-cliente-worker
+  template:
+    metadata:
+      labels:
+        app: fasttechfoods-cliente-worker
+    spec:
+      containers:
+      - name: fasttechfoods-cliente-worker
+        image: fiaptechchallenge.azurecr.io/fasttechfoods.cliente.worker
+        envFrom:
+          - configMapRef:
+             name: configmap-worker

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fasttechfoods-cliente-api
+  labels:
+    app: fasttechfoods-cliente-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fasttechfoods-cliente-api
+  template:
+    metadata:
+      labels:
+        app: fasttechfoods-clienteapi
+    spec:
+      containers:
+      - name: fasttechfoods-cliente-api
+        image: fasttechfoods.azurecr.io/fasttechfoods.cliente.api
+        envFrom:
+          - configMapRef:
+             name: configmap-api
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fasttechfoods-cliente-api
+  labels:
+    app: fasttechfoods-cliente-api
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5060
+    targetPort: 8080
+  selector:
+    app: fasttechfoods-cliente-api

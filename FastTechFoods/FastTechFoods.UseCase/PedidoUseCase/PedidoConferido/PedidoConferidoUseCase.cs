@@ -16,7 +16,7 @@ public class PedidoConferidoUseCase : IPedidoConferidoUseCase
     {
         var pedido = _pedidoRepository.ObterPorId(pedidoConferidoDto.Id);
 
-        if (pedido is null || pedido.RestauranteId != pedidoConferidoDto.RestauranteId || pedido.ClienteId != pedidoConferidoDto.ClienteId)
+        if (pedido is null || pedido.RestauranteId != pedidoConferidoDto.RestauranteId)
         {
             throw new Exception("Pedido não encontrado");
         }

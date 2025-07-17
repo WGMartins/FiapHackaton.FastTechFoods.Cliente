@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{52821DAF-35AE-4465-B6FD-433A656B4369}"
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
+		DockerfileWorker = DockerfileWorker
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "FastTechFoods.Domain\Domain.csproj", "{3D665F00-1DFF-453B-820C-6EA162865FB7}"
@@ -18,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "FastTechF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCase", "FastTechFoods.UseCase\UseCase.csproj", "{2EFC9972-62FB-44C5-B98E-997DE1FC4D35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "FastTechFoods.Worker\Worker.csproj", "{9DB51248-DF86-4AC5-9C6C-88567666A38D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Worker", "FastTechFoods.Worker\Worker.csproj", "{9DB51248-DF86-4AC5-9C6C-88567666A38D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
