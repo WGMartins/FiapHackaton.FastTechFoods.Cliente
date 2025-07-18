@@ -189,7 +189,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.Sql("INSERT INTO \"Usuario\"(\"Id\", \"Email\", \"Cpf\", \"SenhaHash\", \"Role\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'atendente@teste.com', null, '$2a$11$s7x5kOb0gUsP6v8cptIaF..RW84lfsKxBQ7nHJNhTMI/EpqtEjYu.', 'Atencente', '20250716', null )");
             migrationBuilder.Sql("INSERT INTO \"Cliente\"(\"Id\", \"Nome\", \"CriadoEm\", \"AlteradoEm\") VALUES('638acaf4-7d8e-4302-9f27-996fcea9c9f6', 'FULANO DA SILVA', LOCALTIMESTAMP, null)");
             migrationBuilder.Sql("INSERT INTO \"Cardapio\"(\"Id\", \"RestauranteId\", \"CriadoEm\", \"AlteradoEm\") VALUES('d5dad53a-56c8-4f65-abd1-27209d99bdc5', 'fa00c0cb-9c6d-4410-877b-5dc403a2aee9', LOCALTIMESTAMP, null)");
-            migrationBuilder.Sql("INSERT INTO \"ItemDeCardapio\"(\"Id\", \"CardapioId\", \"Nome\", \"Valor\", \"Descricao\", \"Tipo\", \"CriadoEm\", \"AlteradoEm\") VALUES(gen_random_uuid(), 'd5dad53a-56c8-4f65-abd1-27209d99bdc5', 'X-BURGER', '29.90', 'HAMBURGUER DE CARNE BOVINA', 1, LOCALTIMESTAMP, null)");
+            migrationBuilder.Sql("INSERT INTO \"ItemDeCardapio\"(\"Id\", \"CardapioId\", \"Nome\", \"Valor\", \"Descricao\", \"Tipo\", \"CriadoEm\", \"AlteradoEm\") VALUES('c60b730a-7c4b-4821-87c5-5785eb1e4929', 'd5dad53a-56c8-4f65-abd1-27209d99bdc5', 'X-BURGER', '29.90', 'HAMBURGUER DE CARNE BOVINA', 1, LOCALTIMESTAMP, null)");
         }
 
         /// <inheritdoc />

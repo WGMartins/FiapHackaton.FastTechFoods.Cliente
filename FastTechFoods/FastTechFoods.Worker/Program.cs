@@ -30,8 +30,8 @@ builder.Services.AddScoped<IAtualizarCardapioUseCase, AtualizarCardapioUseCase>(
 
 #region RabbitMQ
 
-builder.Services.Configure<RabbitMqSettings>("PedidoConsumer", builder.Configuration.GetSection("RabbitMQ:Pedido"));
-builder.Services.Configure<RabbitMqSettings>("CardapioConsumer", builder.Configuration.GetSection("RabbitMQ:Cardapio"));
+builder.Services.Configure<RabbitMqSettings>("PedidoConsumer", builder.Configuration.GetSection("RabbitMQConsumer:Pedido"));
+builder.Services.Configure<RabbitMqSettings>("CardapioConsumer", builder.Configuration.GetSection("RabbitMQConsumer:Cardapio"));
 
 
 builder.Services.AddSingleton<IMessageConsumer<PedidoConferidoDto>>(sp =>

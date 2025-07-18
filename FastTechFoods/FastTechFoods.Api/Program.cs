@@ -149,7 +149,7 @@ builder.Services.AddSwaggerGen(c =>
 
 #region RabbitMQ
 
-builder.Services.Configure<RabbitMqSettings>("ProducerPedido", builder.Configuration.GetSection("RabbitMQ:Pedido"));
+builder.Services.Configure<RabbitMqSettings>("ProducerPedido", builder.Configuration.GetSection("RabbitMQProducer:Pedido"));
 
 builder.Services.AddSingleton<Func<string, IMessagePublisher>>(sp => producerName =>
 {

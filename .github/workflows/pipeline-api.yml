@@ -64,8 +64,12 @@ jobs:
     - name: Criar ou atualizar ConfigMap
       run: |
           kubectl create configmap configmap-api \
-            --from-literal=RabbitMQ__Pedido__HostName=${{ secrets.RABBITMQ__PEDIDO__HOSTNAME }} \
-            --from-literal=RabbitMQ__Cardapio__HostName=${{ secrets.RABBITMQ__CARDAPIO__HOSTNAME }} \
+            --from-literal=RabbitMQProducer__Pedido__HostName=${{ secrets.RABBITMQ__PEDIDO__HOSTNAME }} \
+            --from-literal=RabbitMQProducer__Pedido__UserName=${{ secrets.RABBITMQ__USERNAME }} \
+            --from-literal=RabbitMQProducer__Pedido__Password=${{ secrets.RABBITMQ__PASSWORD }} \
+            --from-literal=RabbitMQProducer__Pedido__VirtualHost=vh.restaurante \
+            --from-literal=RabbitMQProducer__Pedido__Exchange=x.pedido.enviado \
+            --from-literal=RabbitMQProducer__Pedido__RoutingKey=rk.pedido.enviado \
             --from-literal=ConnectionStrings__ConnectionString=${{ secrets.CONNECTIONSTRINGS__CONNECTIONSTRING }} \
             --from-literal=JwtSettings__SecretKey=${{ secrets.JWTSETTINGS__SECRETKEY }} \
             --from-literal=JwtSettings__Issuer=${{ secrets.JWTSETTINGS__ISSUER }} \
