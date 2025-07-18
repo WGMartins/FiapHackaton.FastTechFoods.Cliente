@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fasttechfoods-cliente-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: fasttechfoods-cliente-api
