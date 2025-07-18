@@ -64,8 +64,12 @@ jobs:
     - name: Criar ou atualizar ConfigMap
       run: |
           kubectl create configmap configmap-worker \
-            --from-literal=RabbitMQ__Pedido__HostName=${{ secrets.RABBITMQ__PEDIDO__HOSTNAME }} \
-            --from-literal=RabbitMQ__Cardapio__HostName=${{ secrets.RABBITMQ__CARDAPIO__HOSTNAME }} \
+            --from-literal=RabbitMQConsumer__Pedido__HostName=${{ secrets.RABBITMQ__PEDIDO__HOSTNAME }} \
+            --from-literal=RabbitMQConsumer__Pedido__UserName=${{ secrets.RABBITMQ__USERNAME }} \
+            --from-literal=RabbitMQConsumer__Pedido__Password=${{ secrets.RABBITMQ__PASSWORD }} \
+            --from-literal=RabbitMQConsumer__Cardapio__HostName=${{ secrets.RABBITMQ__CARDAPIO__HOSTNAME }} \
+            --from-literal=RabbitMQConsumer__Cardapio__UserName=${{ secrets.RABBITMQ__USERNAME }} \
+            --from-literal=RabbitMQConsumer__Cardapio__Password=${{ secrets.RABBITMQ__PASSWORD }} \
             --from-literal=ConnectionStrings__ConnectionString=${{ secrets.CONNECTIONSTRINGS__CONNECTIONSTRING }} \
             --dry-run=client -o yaml | kubectl apply -f -
     
